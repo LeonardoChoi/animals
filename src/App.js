@@ -1,17 +1,28 @@
 import React from "react";
 import { useState } from "react";
+import AnimalsShow from "./AnimalsShow";
+
+function getRandAnimal() {
+  const animals = ["bird", "cat", "cow", "dog", "gator", "horse"];
+
+  return animals[Math.floor(Math.random() * animals.length)];
+}
 
 function App() {
-  const [numAnimals, setNumAnimals] = useState(0);
-  function handleClick() {
-    setNumAnimals(numAnimals + 1);
+  const [animals, setAnimals] = useState([]);
 
-    console.log(numAnimals);
-  }
+  const handleClick = () => {
+    setAnimals([...animals, getRandAnimal()]);
+  };
+
+  const renderedAnimals = animals.map((animal, index) => {
+    return <AnimalsShow type={animal} key={index} />;
+  });
+
   return (
     <div>
-      <button onClick={handleClick}>add anima</button>
-      <h1>Number of animals: {numAnimals}</h1>
+      <button onClick={handleClick}>add animal</button>
+      <h1>{renderedAnimals}</h1>
     </div>
   );
 }
